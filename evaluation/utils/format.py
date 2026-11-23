@@ -273,8 +273,8 @@ def calculate_total_tokens(response):
             current_turn_tokens = 0
 
             # Check for usage metadata in AI messages
-            if hasattr(message, "usage_metadata"):
-                usage = message.usage_metadata
+            usage = getattr(message, "usage_metadata", None)
+            if usage is not None:
                 input_tokens = usage.get("input_tokens", 0)
                 output_tokens = usage.get("output_tokens", 0)
                 turn_total = usage.get("total_tokens", input_tokens + output_tokens)
